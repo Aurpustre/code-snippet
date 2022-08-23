@@ -26,3 +26,27 @@ function superEggDrop(k: number, n: number): number {
     }
     return dp[k][n];
 };
+
+
+
+function superEggDrop(k: number, n: number): number {
+    let result = 1;
+    let dp = Array.from({ length: k + 1 }, () => Array(0));
+    for (let i = 1; i <= k; i++) {
+        dp[i][1] = 1;
+    }
+    for (let i = 0; i <= n; i++) {
+        dp[1][i] = i;
+    }
+
+    for (let i = 2; i <= n; i++) {
+        for (let j = 2; j <= k; j++) {
+            dp[j][i] = dp[j - 1][i - 1] + dp[j][i - 1] + 1;
+        }
+        if (dp[k][i] >= n) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+};
